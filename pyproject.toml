@@ -1,0 +1,29 @@
+[project]
+name = "call-me-maybe"
+version = "0.1.0"
+description = "Translate natural-language prompts into structured function calls using constrained decoding."
+requires-python = ">=3.10"
+# torch, transformers and huggingface-hub are needed by llm_sdk only.
+dependencies = [
+    "pydantic>=2.6",
+    "numpy>=1.24",
+    "torch>=2.0.0",
+    "transformers>=4.40.0",
+	"accelerate>=0.26.0",
+    "huggingface-hub>=0.20.0",
+]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = ["flake8>=7.0", "mypy>=1.8"]
+
+[tool.mypy]
+exclude = '^(llm_sdk|\.venv)/'
+
+# llm_sdk is provided code, so it is not type-checked.
+[[tool.mypy.overrides]]
+module = "llm_sdk"
+ignore_errors = true
+follow_imports = "skip"
